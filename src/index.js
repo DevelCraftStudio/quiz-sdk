@@ -1,12 +1,13 @@
 import { setConfig } from "./core/config.js";
 import { createSession } from "./core/api.js";
-import { saveSessionId } from "./core/storage.js";
-import { startInactivityTimer } from "./core/session.js";
-import { getTotalQuestions } from "./utils/quiz.js";
+import { saveSessionId } from "./utils/storage.js";
+import { startInactivityTimer } from "./services/session.js";
+import { getTotalQuestions } from "./utils/questions.js";
 import { initializeAnswers } from "./services/answer.js";
 import { initializeEvents } from "./services/event.js";
 
 export async function init(options) {
+
   const totalQuestions = getTotalQuestions();
 
   setConfig({

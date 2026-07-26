@@ -1,5 +1,5 @@
 import { setConfig } from "./config.js";
-import { syncQuizInfo } from "./api.js";
+import { QuizInfo } from "./api.js";
 
 export async function publish(options) {
   const totalQuestions = getTotalQuestions();
@@ -9,5 +9,5 @@ export async function publish(options) {
     totalQuestions,
   });
 
-  await syncQuizInfo();
+  await QuizInfo();
 }

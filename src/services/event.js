@@ -1,3 +1,5 @@
+import { sendEvent } from "../core/api.js";
+
 export function initializeEvents() {
   observeViews();
   observeClicks();
