@@ -1,15 +1,13 @@
 import { sendEvent } from "../core/api.js";
 
 export function initializeEvents() {
-  window.quizEvent = {
-    async send(
+  window.qEvent = async function (
+    eventName,
+    questionNumber = null
+  ) {
+    await sendEvent(
       eventName,
-      questionNumber = null
-    ) {
-      await sendEvent(
-        eventName,
-        questionNumber
-      );
-    },
+      questionNumber
+    );
   };
 }

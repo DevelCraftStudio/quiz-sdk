@@ -1,17 +1,14 @@
 import { sendAnswer } from "../core/api.js";
 
 export function initializeAnswers() {
-  window.quizAnswer = {
-    async send(
+  window.qAnswer = async function (
+    questionNumber,
+    optionSelected
+  ) {
+    await sendAnswer(
       questionNumber,
-      optionSelected
-    ){
-      const answeredAt = new Date().toISOString();
-      await sendAnswer(
-        questionNumber,
-        optionSelected, 
-        answeredAt
-      );
-    },
+      optionSelected,
+      new Date().toISOString()
+    );
   };
 }
