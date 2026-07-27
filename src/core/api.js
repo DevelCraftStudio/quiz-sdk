@@ -1,11 +1,10 @@
 import { getConfig } from "./config.js";
 import { getSessionId, removeSessionId } from "../utils/storage.js";
-import { getTotalQuestions } from "../utils/questions.js";
 
 const API_URL = "http://localhost:8080";
 
 export async function QuizInfo() {
-  const { slug } = getConfig();
+  const { slug, totalQuestions } = getConfig();
 
   const response = await fetch(`${API_URL}/quiz/${slug}/info`, {
     method: "PUT",
@@ -13,7 +12,7 @@ export async function QuizInfo() {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      totalQuestions: getTotalQuestions(),
+      totalQuestions,
       link: window.location.origin,
     }),
   });

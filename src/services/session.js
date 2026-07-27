@@ -8,7 +8,7 @@ let sessionFinished = false;
 
 const EVENTS = ["mousedown", "keydown", "pointermove", "scroll", "input"];
 
-export function startInactivityTimer() {
+export function initializeSession() {
   resetInactivityTimer();
 
   EVENTS.forEach((event) => {
