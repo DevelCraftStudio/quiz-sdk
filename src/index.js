@@ -4,6 +4,7 @@ import { saveSessionId } from "./utils/storage.js";
 import { initializeSession } from "./services/session.js";
 import { initializeAnswers } from "./services/answer.js";
 import { initializeEvents } from "./services/event.js";
+import { initializeStaticObserver } from "./lib/StaticObserver.js";
 
 export async function init(options) {
   setConfig(options);
@@ -15,6 +16,9 @@ export async function init(options) {
 
     initializeEvents();
     initializeAnswers();
+
+    initializeStaticObserver();
+
     initializeSession();
 
   } catch (error) {
