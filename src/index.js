@@ -6,7 +6,7 @@ import { initializeAnswers } from "./services/answer.js";
 import { initializeEvents } from "./services/event.js";
 import { initializeStaticObserver } from "./lib/StaticObserver.js";
 import { initializeStaticActions } from "./lib/StaticAction.js";
-import { initializeStaticOptions } from "./lib/StaticOption";
+import { initializeStaticOptions } from "./lib/StaticOption.js";
 
 export async function init(options) {
   setConfig(options);
