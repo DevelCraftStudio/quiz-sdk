@@ -5,6 +5,8 @@ import { initializeSession } from "./services/session.js";
 import { initializeAnswers } from "./services/answer.js";
 import { initializeEvents } from "./services/event.js";
 import { initializeStaticObserver } from "./lib/StaticObserver.js";
+import { initializeStaticActions } from "./lib/StaticAction.js";
+import { initializeStaticOptions } from "./lib/StaticOption";
 
 export async function init(options) {
   setConfig(options);
@@ -18,6 +20,8 @@ export async function init(options) {
     initializeAnswers();
 
     initializeStaticObserver();
+    initializeStaticActions();
+    initializeStaticOptions();
 
     initializeSession();
 
