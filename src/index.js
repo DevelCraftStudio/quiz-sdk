@@ -12,6 +12,9 @@ export async function init(options) {
   setConfig(options);
 
   try {
+
+    console.log("Biblioteca inicializada.");
+
     const { sessionId } = await createSession();
 
     saveSessionId(sessionId);
