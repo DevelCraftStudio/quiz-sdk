@@ -1,3 +1,6 @@
+import { saveAnswer } from "../utils/storage.js";
+import { hasStaticSend } from "./StaticSend.js";
+
 function handleOption(event) {
   const element = event.currentTarget;
 
@@ -8,6 +11,11 @@ function handleOption(event) {
   }
 
   const [questionNumber, optionSelected] = option.split(":");
+
+  if (hasStaticSend(questionNumber)) {
+    saveAnswer(Number(questionNumber), optionSelected);
+    return;
+  }
 
   qAnswer(Number(questionNumber), optionSelected);
 }
