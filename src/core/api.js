@@ -7,7 +7,7 @@ import {
 
 const API_URL = "https://quiz-api-production-3617.up.railway.app";
 
-export async function QuizInfo() {
+export async function quizInfo() {
   const { slug, totalQuestions } = getConfig();
 
   const response = await fetch(`${API_URL}/quiz/${slug}/info`, {
@@ -17,7 +17,6 @@ export async function QuizInfo() {
     },
     body: JSON.stringify({
       totalQuestions,
-      link: window.location.origin,
     }),
   });
 
@@ -33,6 +32,12 @@ export async function createSession() {
 
   const response = await fetch(`${API_URL}/session/start/${slug}`, {
     method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      url: window.location.href,
+    }),
   });
 
   if (!response.ok) {
