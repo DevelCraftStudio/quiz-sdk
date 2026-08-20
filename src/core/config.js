@@ -1,3 +1,5 @@
+import { getStaticQuestions } from "../utils/getInformation.js";
+
 const config = {
   slug: "",
   totalQuestions: 0,
@@ -8,15 +10,18 @@ export function setConfig(options) {
     throw new Error("O slug é obrigatório.");
   }
 
-  if (
-    options?.totalQuestions == null ||
-    options.totalQuestions <= 0
-  ) {
+  let totalQuestions = options?.totalQuestions;
+
+  if (totalQuestions == null) {
+    totalQuestions = getStaticQuestions();
+  }
+
+  if (totalQuestions <= 0) {
     throw new Error("O total de perguntas deve ser maior que zero.");
   }
 
   config.slug = options.slug;
-  config.totalQuestions = options.totalQuestions;
+  config.totalQuestions = totalQuestions;
 }
 
 export function getConfig() {

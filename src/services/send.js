@@ -47,6 +47,10 @@ export function initializeSend() {
   };
 }
 
+  /* --------------------------------
+     Verificação de envio
+  -------------------------------- */
+
 export function hasEnv(questionNumber) {
   return sendQuestions[questionNumber] === true;
 }
