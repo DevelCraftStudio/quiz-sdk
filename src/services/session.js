@@ -1,23 +1,55 @@
 import { createSession, finishSession } from "../core/api.js";
-import { saveSessionCode } from "../utils/storage.js";
+
+// ------------------------------------------
+// Configuração da sessão
+// ------------------------------------------
 
 const TIMEOUT = 5 * 60 * 1000; // 5 minutos
 
+const ACTIVITY_EVENTS = [
+  "mousedown",
+  "keydown",
+  "pointermove",
+  "scroll",
+  "input",
+  "touchstart",
+];
+
+
+// ------------------------------------------
+// Estado da sessão
+// ------------------------------------------
+
 let inactivityTimer;
 let sessionFinished = false;
+let initialized = false;
 
-const EVENTS = ["mousedown", "keydown", "pointermove", "scroll", "input"];
+
+// ------------------------------------------
+// Inicialização
+// ------------------------------------------
 
 export function initializeSession() {
+  if (initialized) {
+    return;
+  }
+
+  initialized = true;
+
   resetInactivityTimer();
 
-  EVENTS.forEach((event) => {
+  ACTIVITY_EVENTS.forEach((event) => {
     window.addEventListener(event, resetInactivityTimer);
   });
 
-  window.addEventListener("click", restartSession);
+  window.addEventListener("pointerdown", restartSession);
   window.addEventListener("pagehide", finish);
 }
+
+
+// ------------------------------------------
+// Controle de inatividade
+// ------------------------------------------
 
 function resetInactivityTimer() {
   if (sessionFinished) {
@@ -25,8 +57,14 @@ function resetInactivityTimer() {
   }
 
   clearTimeout(inactivityTimer);
+
   inactivityTimer = setTimeout(finish, TIMEOUT);
 }
+
+
+// ------------------------------------------
+// Finalização da sessão
+// ------------------------------------------
 
 async function finish() {
   if (sessionFinished) {
@@ -40,9 +78,14 @@ async function finish() {
   try {
     await finishSession();
   } catch (error) {
-    console.error(error);
+    console.error("Erro ao finalizar sessão:", error);
   }
 }
+
+
+// ------------------------------------------
+// Reativação da sessão
+// ------------------------------------------
 
 async function restartSession() {
   if (!sessionFinished) {
@@ -50,14 +93,12 @@ async function restartSession() {
   }
 
   try {
-    const { sessionCode } = await createSession();
-
-    saveSessionCode(sessionCode);
+    await createSession();
 
     sessionFinished = false;
 
     resetInactivityTimer();
   } catch (error) {
-    console.error(error);
+    console.error("Erro ao reiniciar sessão:", error);
   }
 }
