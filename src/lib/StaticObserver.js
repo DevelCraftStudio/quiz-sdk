@@ -9,18 +9,18 @@ function handleIntersection(entries, observer) {
     const element = entry.target;
     const eventName = element.dataset.qEvent;
 
-    if (window.qEvent && eventName) {
-        
-      if (eventName === "VIEW_QUESTION") {
-        const index = questionElements.indexOf(element);
+    if (!window.qEvent || !eventName) {
+      return;
+    }
 
-        if (index !== -1) {
-          window.qEvent(eventName, index + 1);
-        }
+    if (eventName === "vQuestion") {
+      const questionIndex = questionElements.indexOf(element);
 
-      } else {
-        window.qEvent(eventName);
+      if (questionIndex !== -1) {
+        window.qEvent(eventName, questionIndex + 1);
       }
+    } else {
+      window.qEvent(eventName);
     }
 
     observer.unobserve(element);
@@ -35,7 +35,7 @@ export function initializeStaticObserver() {
   }
 
   questionElements = [
-    ...document.querySelectorAll('[data-q-event="VIEW_QUESTION"]'),
+    ...document.querySelectorAll('[data-q-event="vQuestion"]'),
   ];
 
   const observer = new IntersectionObserver(handleIntersection, {
