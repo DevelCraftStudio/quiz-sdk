@@ -7,7 +7,7 @@ const config = {
 
 export function setConfig(options = {}) {
   if (!options.slug) {
-    throw new Error("O slug do quiz é obrigatório.");
+    throw new Error("O slug do quiz é Necessário.");
   }
 
   config.slug = options.slug;
