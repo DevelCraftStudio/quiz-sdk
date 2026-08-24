@@ -1,8 +1,16 @@
 import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+
 import { publish } from "../src/core/publish.js";
 import { getQuestionsFromHtml } from "../src/utils/getInformation.js";
 
-const html = fs.readFileSync("./index.html", "utf8");
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const indexPath = path.resolve(__dirname, "../index.html");
+
+const html = fs.readFileSync(indexPath, "utf8");
 
 const match = html.match(
     /init\s*\(\s*\{\s*slug:\s*["']([^"']+)["'](?:\s*,\s*totalQuestions:\s*(\d+))?\s*\}\s*\)/
