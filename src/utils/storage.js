@@ -2,7 +2,7 @@
    Storage chave de sessão
   --------------------------------------- */
 
-const SESSION_KEY = "quizSessionCode";
+const SESSION_KEY = "DevelCraft-quizzes_SessionCode";
 
 export function saveSessionCode(sessionCode) {
   localStorage.setItem(SESSION_KEY, sessionCode);
@@ -20,7 +20,7 @@ export function removeSessionCode() {
    Storage de respostas
   --------------------------------------- */
 
-const ANSWERS_KEY = "quizAnswers";
+const ANSWERS_KEY = "DevelCraft-quizzes_Answers";
 
 export function saveAnswer(questionNumber, optionSelected) {
   const answers = getAnswers();

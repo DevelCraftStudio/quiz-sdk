@@ -7,8 +7,8 @@ function handleAction(event) {
     return;
   }
 
-  if (window.qEvent) {
-    window.qEvent(actionName);
+  if (window.qAction) {
+    window.qAction(actionName);
   }
 }
 

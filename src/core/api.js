@@ -7,8 +7,13 @@ import {
 
 const API_URL = "https://quiz-api-production-3617.up.railway.app";
 
+// Quiz info
 export async function quizInfo() {
   const { slug, totalQuestions } = getConfig();
+
+  if (!slug || !totalQuestions) {
+    return null;
+  }
 
   const response = await fetch(`${API_URL}/quiz/${slug}/info`, {
     method: "PUT",
@@ -27,8 +32,15 @@ export async function quizInfo() {
   return await response.json();
 }
 
+// Create session
 export async function createSession() {
   const { slug } = getConfig();
+
+  if (!slug) {
+    return null;
+  }
+
+  const previousSessionCode = getSessionCode();
 
   const response = await fetch(`${API_URL}/session/start/${slug}`, {
     method: "POST",
@@ -37,6 +49,7 @@ export async function createSession() {
     },
     body: JSON.stringify({
       url: window.location.href,
+      previousSessionCode,
     }),
   });
 
@@ -53,7 +66,12 @@ export async function createSession() {
   return data;
 }
 
-export async function sendAnswer(questionNumber, optionSelected, answeredAt) {
+// Send answer
+export async function sendAnswer(
+  questionNumber,
+  optionSelected,
+  answeredAt
+) {
   const sessionCode = getSessionCode();
 
   if (!sessionCode) {
@@ -78,7 +96,11 @@ export async function sendAnswer(questionNumber, optionSelected, answeredAt) {
   }
 }
 
-export async function sendEvent(eventName, questionNumber = null) {
+// Send event
+export async function sendEvent(
+  eventName,
+  questionNumber = null
+) {
   const sessionCode = getSessionCode();
 
   if (!sessionCode) {
@@ -102,6 +124,7 @@ export async function sendEvent(eventName, questionNumber = null) {
   }
 }
 
+// Finish session
 export async function finishSession() {
   const sessionCode = getSessionCode();
 
@@ -109,10 +132,13 @@ export async function finishSession() {
     return;
   }
 
-  const response = await fetch(`${API_URL}/session/finish/${sessionCode}`, {
-    method: "POST",
-    keepalive: true,
-  });
+  const response = await fetch(
+    `${API_URL}/session/finish/${sessionCode}`,
+    {
+      method: "POST",
+      keepalive: true,
+    }
+  );
 
   if (!response.ok) {
     throw new Error("Erro ao finalizar sessão.");

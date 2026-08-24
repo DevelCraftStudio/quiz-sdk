@@ -41,24 +41,6 @@ export function initializeEvents() {
         backendEvent = "VIEW_OFFER";
         break;
 
-      case "cResult":
-        if (questionNumber !== null) {
-          console.warn("cResult não aceita número de questão.");
-          return;
-        }
-
-        backendEvent = "CLICK_RESULT";
-        break;
-
-      case "cOffer":
-        if (questionNumber !== null) {
-          console.warn("cOffer não aceita número de questão.");
-          return;
-        }
-
-        backendEvent = "CLICK_OFFER";
-        break;
-
       default:
         console.warn(`Evento desconhecido: ${eventName}`);
         return;
