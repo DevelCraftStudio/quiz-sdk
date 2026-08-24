@@ -10,6 +10,13 @@ const __dirname = path.dirname(__filename);
 
 const indexPath = path.resolve(__dirname, "../index.html");
 
+if (!fs.existsSync(indexPath)) {
+    console.log(
+        "index.html não encontrado. Pulando sincronização do quiz."
+    );
+    process.exit(0);
+}
+
 const html = fs.readFileSync(indexPath, "utf8");
 
 const match = html.match(
