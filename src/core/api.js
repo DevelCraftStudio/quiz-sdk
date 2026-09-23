@@ -5,7 +5,7 @@ import {
   removeSessionCode,
 } from "../utils/storage.js";
 
-const API_URL = "https://quiz-api-production-3617.up.railway.app";
+const API_URL = "https://quiz-api-l9rx.onrender.com";
 
 // Quiz info
 export async function quizInfo() {
